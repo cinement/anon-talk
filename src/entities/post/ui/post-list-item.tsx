@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { Post } from "../model";
-import { formatDate } from "@/lib/utils/date";
+import { formatDate } from "@/lib/date";
 
 interface PostListItemProps {
   post: Post;

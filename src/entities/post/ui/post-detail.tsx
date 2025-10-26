@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import type { Post } from "../model";
-import { useLikePost, useDeletePost } from "../api";
+import { useLikePost } from "@/features/like-post";
+import { useDeletePost, DeletePostDialog } from "@/features/delete-post";
 import { PostHeader } from "./post-header";
 import { PostInfo } from "./post-info";
 import { PostContent } from "./post-content";
 import { PostActions } from "./post-actions";
-import { DeletePostDialog } from "./delete-post-dialog";
 
 interface PostDetailProps {
   post: Post;

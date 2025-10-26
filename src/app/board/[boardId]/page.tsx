@@ -1,6 +1,7 @@
 import { getBoards, getPosts } from "@/lib/api";
 import { BoardTabs } from "@/entities/board/ui";
 import { PostList } from "@/entities/post";
+import { CreatePostButton } from "@/features/create-post";
 import { notFound } from "next/navigation";
 
 interface BoardPageProps {
@@ -40,6 +41,7 @@ export default async function BoardPage({ params, searchParams }: BoardPageProps
     <>
       <BoardTabs boards={boards} currentBoardId={Number(boardId)} />
       <PostList posts={posts.data} />
+      <CreatePostButton boards={boards} defaultBoardId={Number(boardId)} />
     </>
   );
 }

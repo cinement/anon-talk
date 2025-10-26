@@ -20,7 +20,12 @@ interface DeletePostDialogProps {
   isDeleting: boolean;
 }
 
-export function DeletePostDialog({ open, onOpenChange, onConfirm, isDeleting }: DeletePostDialogProps) {
+export function DeletePostDialog({
+  open,
+  onOpenChange,
+  onConfirm,
+  isDeleting,
+}: DeletePostDialogProps) {
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -33,10 +38,7 @@ export function DeletePostDialog({ open, onOpenChange, onConfirm, isDeleting }: 
 
     try {
       await onConfirm(nickname, password);
-      // 성공 시 다이얼로그 닫기 (페이지 이동으로 자동 닫힘)
     } catch (err) {
-      console.error(err);
-
       setError("삭제 권한이 없거나 비밀번호가 일치하지 않습니다");
     }
   };

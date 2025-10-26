@@ -1,4 +1,4 @@
-import { formatDate } from "@/lib/utils/date";
+import { formatDate } from "@/lib/date";
 
 interface PostInfoProps {
   nickname: string;
