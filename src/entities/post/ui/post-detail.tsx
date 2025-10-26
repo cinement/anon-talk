@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { toast } from "sonner";
 import type { Post } from "../model";
 import { useLikePost } from "@/features/like-post";
 import { useDeletePost, DeletePostDialog } from "@/features/delete-post";
 import { useComments, CommentList } from "@/entities/comment";
 import { CreateCommentForm } from "@/features/create-comment";
 import { useDeleteComment, DeleteCommentDialog } from "@/features/delete-comment";
+import { shareCurrentPage } from "@/lib/share";
 import { PostHeader } from "./post-header";
 import { PostInfo } from "./post-info";
 import { PostContent } from "./post-content";
@@ -28,15 +28,6 @@ export function PostDetail({ post, boardName, boardId }: PostDetailProps) {
   const { comments, refetch: refetchComments } = useComments(post.id);
   const { isDeleting: isDeletingComment, handleDelete: handleDeleteComment } = useDeleteComment(refetchComments);
   const [deleteCommentId, setDeleteCommentId] = useState<number | null>(null);
-
-  const handleShare = async () => {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      toast.success("링크가 클립보드에 복사되었습니다");
-    } catch (error) {
-      toast.error("링크 복사에 실패했습니다");
-    }
-  };
 
   const handleCommentDeleteClick = (commentId: number) => {
     setDeleteCommentId(commentId);
@@ -60,7 +51,7 @@ export function PostDetail({ post, boardName, boardId }: PostDetailProps) {
         recCount={recCount}
         isLiking={isLiking}
         onLike={handleLike}
-        onShare={handleShare}
+        onShare={shareCurrentPage}
       />
 
       {/* 댓글 섹션 */}
