@@ -23,7 +23,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <>
-      <PostDetail post={post} boardName={board.name} />
+      <PostDetail post={post} boardName={board.name} boardId={board.id} />
     </>
   );
 }

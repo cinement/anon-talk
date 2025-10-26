@@ -1,13 +1,20 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ArrowLeft, MoreVertical } from "lucide-react";
+import { ArrowLeft, MoreVertical, Trash2 } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface PostHeaderProps {
   boardName: string;
+  onDeleteClick?: () => void;
 }
 
-export function PostHeader({ boardName }: PostHeaderProps) {
+export function PostHeader({ boardName, onDeleteClick }: PostHeaderProps) {
   const router = useRouter();
 
   return (
@@ -23,12 +30,25 @@ export function PostHeader({ boardName }: PostHeaderProps) {
 
         <h1 className="text-lg font-medium text-white">{boardName}</h1>
 
-        <button
-          className="p-2 -mr-2 hover:bg-gray-900 rounded-lg transition-colors"
-          aria-label="더보기"
-        >
-          <MoreVertical className="w-6 h-6 text-white" />
-        </button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              className="p-2 -mr-2 hover:bg-gray-900 rounded-lg transition-colors"
+              aria-label="더보기"
+            >
+              <MoreVertical className="w-6 h-6 text-white" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="bg-gray-900 border-gray-800">
+            <DropdownMenuItem
+              onClick={onDeleteClick}
+              className="text-red-400 hover:text-red-300 hover:bg-gray-800 cursor-pointer"
+            >
+              <Trash2 className="w-4 h-4 mr-2" />
+              삭제
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </header>
   );

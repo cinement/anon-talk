@@ -15,6 +15,4 @@ export async function deletePost(postId: number, request: DeletePostRequest): Pr
   if (!response.ok) {
     throw new Error(response.statusText);
   }
-
-  return response.json();
 }

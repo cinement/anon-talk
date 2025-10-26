@@ -1,3 +1,3 @@
 export type { Board } from "./model";
 export { useBoards } from "./api";
-export { BoardTabsNav } from "./ui";
+export { BoardTabs } from "./ui";
