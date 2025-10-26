@@ -37,11 +37,9 @@ export default async function BoardPage({ params, searchParams }: BoardPageProps
   }
 
   return (
-    <div className="min-h-screen bg-black flex justify-center">
-      <div className="w-full max-w-2xl">
-        <BoardTabs boards={boards} currentBoardId={Number(boardId)} />
-        <PostList posts={posts.data} />
-      </div>
-    </div>
+    <>
+      <BoardTabs boards={boards} currentBoardId={Number(boardId)} />
+      <PostList posts={posts.data} />
+    </>
   );
 }
