@@ -54,8 +54,8 @@ function getPostsUrl(boardId: number, params?: GetPostsParams) {
   }
 
   if (searchParams.toString()) {
-    return `${postEndpoints.getPosts(boardId)}?${searchParams.toString()}` as const;
+    return `${postEndpoints.getPosts()}?${searchParams.toString()}` as const;
   }
 
-  return `${postEndpoints.getPosts(boardId)}` as const;
+  return `${postEndpoints.getPosts()}?${searchParams.toString()}` as const;
 }
