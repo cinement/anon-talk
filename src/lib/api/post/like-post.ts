@@ -13,9 +13,7 @@ interface LikePostResponse {
 }
 
 export async function likePost(postId: number): Promise<LikePostResponse> {
-  const response = await fetch(postEndpoints.likePost(postId), {
-    method: "POST",
-  });
+  const response = await fetch(postEndpoints.likePost(postId));
 
   if (!response.ok) {
     throw new Error(response.statusText);
