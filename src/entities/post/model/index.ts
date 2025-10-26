@@ -1,1 +1,1 @@
-export type { Post, PostListParams } from "./types";
+export * from "./post";

@@ -1,3 +1,3 @@
-export type { Board } from "./model";
-export { useBoards } from "./api";
-export { BoardTabs } from "./ui";
+export * from "./api";
+export * from "./model";
+export * from "./ui";

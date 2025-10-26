@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { getComments } from "@/lib/api";
-import type { Comment, CommentListParams } from "../model/types";
+import type { Comment, CommentListParams } from "../model";
 
 export function useComments(postId: number, params?: CommentListParams) {
   const [comments, setComments] = useState<Comment[]>([]);

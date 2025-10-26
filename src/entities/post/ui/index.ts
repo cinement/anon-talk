@@ -1,7 +1,7 @@
-export { PostList } from "./post-list";
-export { PostListItem } from "./post-list-item";
-export { PostDetail } from "./post-detail";
-export { PostHeader } from "./post-header";
-export { PostInfo } from "./post-info";
-export { PostContent } from "./post-content";
-export { PostActions } from "./post-actions";
+export * from "./post-list";
+export * from "./post-list-item";
+export * from "./post-detail";
+export * from "./post-header";
+export * from "./post-info";
+export * from "./post-content";
+export * from "./post-actions";

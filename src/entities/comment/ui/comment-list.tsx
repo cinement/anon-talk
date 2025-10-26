@@ -1,7 +1,7 @@
 "use client";
 
 import { CommentItem } from "./comment-item";
-import type { Comment } from "../model/types";
+import type { Comment } from "../model";
 
 interface CommentListProps {
   comments: Comment[];

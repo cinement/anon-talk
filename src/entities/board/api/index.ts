@@ -1,1 +1,1 @@
-export { useBoards } from "./use-boards";
+export * from "./use-boards";

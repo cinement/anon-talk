@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { Board } from "../model";
+import type { Board } from "../model/board";
 
 interface BoardTabsProps {
   boards: Board[];

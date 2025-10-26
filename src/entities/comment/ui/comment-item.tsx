@@ -2,7 +2,7 @@
 
 import { X } from "lucide-react";
 import { formatDate } from "@/lib/date";
-import type { Comment } from "../model/types";
+import type { Comment } from "../model";
 
 interface CommentItemProps {
   comment: Comment;

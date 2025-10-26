@@ -1,15 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
-import { toast } from "sonner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { createPost } from "@/lib/api";
+import { useCreatePost } from "../api/use-create-post";
 import type { Board } from "@/entities/board";
 
 interface CreatePostDialogProps {
@@ -19,62 +16,31 @@ interface CreatePostDialogProps {
   defaultBoardId?: number;
 }
 
-export function CreatePostDialog({ open, onOpenChange, boards, defaultBoardId }: CreatePostDialogProps) {
-  const router = useRouter();
-  const [selectedBoardId, setSelectedBoardId] = useState(defaultBoardId || boards[0]?.id);
-  const [title, setTitle] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
-  const [content, setContent] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+export function CreatePostDialog({
+  open,
+  onOpenChange,
+  boards,
+  defaultBoardId,
+}: CreatePostDialogProps) {
+  const {
+    selectedBoardId,
+    setSelectedBoardId,
+    title,
+    setTitle,
+    nickname,
+    setNickname,
+    password,
+    setPassword,
+    content,
+    setContent,
+    isSubmitting,
+    handleSubmit,
+    handleClose,
+  } = useCreatePost({ boards, defaultBoardId, onClose: () => onOpenChange(false) });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!title.trim()) {
-      toast.error("제목을 입력해주세요");
-      return;
-    }
-
-    if (!password.trim()) {
-      toast.error("비밀번호를 입력해주세요");
-      return;
-    }
-
-    if (!content.trim()) {
-      toast.error("내용을 입력해주세요");
-      return;
-    }
-
-    try {
-      setIsSubmitting(true);
-      const post = await createPost({
-        boardId: selectedBoardId,
-        title: title.trim(),
-        content: content.trim(),
-        nickname: nickname.trim() || "익명",
-        password: password.trim(),
-      });
-
-      toast.success("게시글이 작성되었습니다");
-      onOpenChange(false);
-      router.push(`/board/${selectedBoardId}/post/${post.id}`);
-      router.refresh();
-    } catch (error) {
-      toast.error("게시글 작성에 실패했습니다");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleClose = () => {
-    if (isSubmitting) return;
-
-    setTitle("");
-    setNickname("");
-    setPassword("");
-    setContent("");
-    onOpenChange(false);
+    await handleSubmit();
   };
 
   return (
@@ -91,7 +57,7 @@ export function CreatePostDialog({ open, onOpenChange, boards, defaultBoardId }:
           </button>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6 py-4">
+        <form onSubmit={onSubmit} className="space-y-6 py-4">
           {/* 게시판 선택 */}
           <div className="space-y-2">
             <Label className="text-gray-200">게시판</Label>

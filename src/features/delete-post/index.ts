@@ -1,2 +1,2 @@
-export { useDeletePost } from "./api/use-delete-post";
-export { DeletePostDialog } from "./ui/delete-post-dialog";
+export * from "./api";
+export * from "./ui";

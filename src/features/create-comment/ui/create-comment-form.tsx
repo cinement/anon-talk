@@ -1,11 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { createComment } from "@/lib/api";
+import { useCreateComment } from "../api/use-create-comment";
 
 interface CreateCommentFormProps {
   postId: number;
@@ -18,51 +16,24 @@ export function CreateCommentForm({
   boardId,
   onSuccess,
 }: CreateCommentFormProps) {
-  const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
-  const [content, setContent] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const {
+    nickname,
+    setNickname,
+    password,
+    setPassword,
+    content,
+    setContent,
+    isSubmitting,
+    handleSubmit,
+  } = useCreateComment({ postId, boardId, onSuccess });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!content.trim()) {
-      toast.error("댓글을 입력해주세요");
-      return;
-    }
-
-    if (!password.trim()) {
-      toast.error("비밀번호를 입력해주세요");
-      return;
-    }
-
-    try {
-      setIsSubmitting(true);
-      await createComment({
-        boardId,
-        postId,
-        content: content.trim(),
-        nickname: nickname.trim() || "익명",
-        password: password.trim(),
-      });
-
-      // 성공 시 폼 초기화
-      setNickname("");
-      setPassword("");
-      setContent("");
-      toast.success("댓글이 등록되었습니다");
-
-      // 댓글 목록 새로고침
-      onSuccess?.();
-    } catch (error) {
-      toast.error("댓글 등록에 실패했습니다");
-    } finally {
-      setIsSubmitting(false);
-    }
+    await handleSubmit();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="border-t border-gray-800 p-4 space-y-3">
+    <form onSubmit={onSubmit} className="border-t border-gray-800 p-4 space-y-3">
       <div className="grid grid-cols-2 gap-2">
         <Input
           type="text"

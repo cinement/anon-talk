@@ -1,1 +1,1 @@
-export type { Board } from "./types";
+export * from "./board";
